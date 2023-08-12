@@ -1,0 +1,10 @@
+const router = require('@koa/router');
+const user = require('../control/user.control');
+const { verifyUser, handlePassword } = require('../middleware/user.middleware');
+const { verifyAuth } = require('../middleware/auth.middleware');
+const userRouter = new router({ prefix: '/users' });
+userRouter.post('/', verifyUser, handlePassword, user.create);
+userRouter.delete('/:id', verifyAuth, user.delete);
+userRouter.patch('/:id', verifyAuth, user.patch);
+userRouter.get('/:id', verifyAuth, user.get);
+module.exports = userRouter;
